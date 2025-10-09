@@ -6,7 +6,6 @@
 import express from "express";
 import dotenv from "dotenv";
 
-
 dotenv.config();
 const app = express();
 
@@ -18,10 +17,9 @@ const app = express();
   2. __dirname = path.dirname() return the directory name of the current module file
 */
 import path from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url); //file:///C:/Users/DELL/Desktop/multer/src/app.js
-const __dirname = path.dirname(__filename); //C:/Users/DELL/Desktop/multer/src/app.js
+const __dirname = path.resolve();
+//// (or C:\Users\username\projects\file_submit on Windows)
 
 //ejs
 /*
