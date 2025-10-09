@@ -1,14 +1,17 @@
+import express from "express";
+import multer from "multer";
+import path from "path";
+
+const router = express.Router();
+
+const __dirname = path.resolve();
 //Configure storage
 
-//disk storage is a method in multer to store files on disk
-//two properties: destination - filename
-const storage = multer.diskStorage({
-  //where is the storage location or destination to reach
-  destination: (req, file, cb) => {
-    //if cb is null => automatically create filestorage folder
-    cb(null, "filestorage/");
+const inventory = multer.diskStorage({
+  destination: (request, file, callback) => {
+    callback(null, "filestorage/");
   },
-  filename: (req, file, cb) => {
+  filename: (request, file, cb) => {
     const fileName = `${Date.now()}-${file.originalname}`;
 
     //if null => no error and file name is fileName
@@ -16,13 +19,21 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+const upload = multer({ inventory });
 
 //-----------------finish configure
 //Step 2: create upload router
-app.use("/uploads", express.static(path.join(__dirname, "filestorage")));
+router.use("/uploads", express.static(path.join(__dirname, "filestorage")));
 
-app.post("/upload", upload.single("file"), (req, res) => {
+router.post("/upload", upload.single("file"), (req, res) => {
   res.redirect("/");
 });
 
+export default router;
+
+//===================End========================
+
+//disk storage is a method in multer to store files on disk
+//two properties: destination - filename
+//where is the storage location or destination to reach
+//if cb is null => automatically create filestorage folder

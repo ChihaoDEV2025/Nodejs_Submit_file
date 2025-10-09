@@ -1,4 +1,9 @@
-app.get("/view", (req, res) => {
+import express from "express";
+import fs from "fs";
+import path from "path";
+const router = express.Router();
+
+router.get("/view", (req, res) => {
   const uploadDirectory = path.join(__dirname, "filestorage");
   fs.readdir(uploadDirectory, (err, files) => {
     if (err) {
@@ -9,4 +14,6 @@ app.get("/view", (req, res) => {
     }
   });
 });
+
+export default router;
 //export
