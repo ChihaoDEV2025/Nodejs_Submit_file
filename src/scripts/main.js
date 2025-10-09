@@ -1,5 +1,5 @@
 function populateFileListWithIcons() {
-  fetch("/view")
+  fetch("/api/v1/view")
     .then((response) => response.json())
     .then((data) => {
       const fileList = document.getElementById("fileList");
@@ -56,7 +56,7 @@ function deleteFile() {
   const deleteForm = document.getElementById("deleteForm");
   const formData = new FormData(deleteForm);
 
-  fetch(`/delete/${formData.get("fileName")}`, {
+  fetch(`/api/v1/delete/${formData.get("fileName")}`, {
     method: "DELETE",
   })
     .then((response) => response.text())
@@ -69,7 +69,7 @@ function deleteFile() {
 }
 
 function populateDeleteOptions() {
-  fetch("/view")
+  fetch("/api/v1/view")
     .then((response) => response.json())
     .then((data) => {
       const fileSelect = document.getElementById("fileSelect");
